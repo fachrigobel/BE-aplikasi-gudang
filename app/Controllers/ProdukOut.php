@@ -2,22 +2,21 @@
 
 namespace App\Controllers;
 
-use App\Models\ProdukModel;
+use App\Models\ProdukKeluarModel;
 use CodeIgniter\HTTP\ResponseTrait;
+use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
 
-class Produk extends ResourceController
+class ProdukOut extends ResourceController
 {
     use ResponseTrait;
-
-    protected $produkModel;
-    protected $produkMasukModel;
-    protected $produkKeluarModel;
+    protected $produkOut;
 
     public function __construct()
     {
-        $this->produkModel = new ProdukModel();
+        $this->produkOut = new ProdukKeluarModel();
     }
+
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -25,7 +24,7 @@ class Produk extends ResourceController
      */
     public function index()
     {
-        return $this->respond($this->produkModel->findAll());
+        return $this->respond($this->produkOut->findAll());
     }
 
     /**
@@ -35,8 +34,7 @@ class Produk extends ResourceController
      */
     public function show($id = null)
     {
-        //
-        return $this->respond($this->produkModel->find($id));
+        return $this->respond($this->produkOut->find($id));
     }
 
     /**
@@ -46,14 +44,16 @@ class Produk extends ResourceController
      */
     public function create()
     {
-        //
         $data = [
-            'nama_produk'   =>  $this->request->getVar('nama_produk')
+            'id_produk'     => $this->request->getVar('id_produk'),
+            'tanggal_masuk' => Time::now('Asia/Kuala_Lumpur'),
+            'jumlah'        => $this->request->getVar('jumlah'),
         ];
 
-        $this->produkModel->save($data);
+        $this->produkOut->save($data);
         return $this->respondCreated('Data Succesfully Created!');
     }
+
 
     /**
      * Add or update a model resource, from "posted" properties
@@ -62,12 +62,12 @@ class Produk extends ResourceController
      */
     public function update($id = null)
     {
-        //
         $data = [
-            'nama_produk'   =>  $this->request->getVar('nama_produk')
+            'id_produk'     => $this->request->getVar('id_produk'),
+            'jumlah'        => $this->request->getVar('jumlah'),
         ];
 
-        $this->produkModel->update($id, $data);
+        $this->produkOut->update($id, $data);
         return $this->respondCreated('Data Succesfully Updated!');
     }
 
@@ -78,8 +78,7 @@ class Produk extends ResourceController
      */
     public function delete($id = null)
     {
-        //
-        $this->produkModel->delete($id);
+        $this->produkOut->delete($id);
         return $this->respondDeleted('Data Successfully Deleted!');
     }
 }
