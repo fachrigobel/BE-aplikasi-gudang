@@ -45,9 +45,9 @@ class ProdukOut extends ResourceController
     public function create()
     {
         $data = [
-            'id_produk'     => $this->request->getVar('id_produk'),
-            'tanggal_masuk' => Time::now('Asia/Kuala_Lumpur'),
-            'jumlah'        => $this->request->getVar('jumlah'),
+            'id_produk'         => $this->request->getVar('id_produk'),
+            'tanggal_keluar'    => Time::now('Asia/Kuala_Lumpur'),
+            'jumlah'            => $this->request->getVar('jumlah'),
         ];
 
         $this->produkOut->save($data);

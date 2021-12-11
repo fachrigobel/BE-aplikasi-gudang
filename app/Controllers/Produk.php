@@ -11,8 +11,6 @@ class Produk extends ResourceController
     use ResponseTrait;
 
     protected $produkModel;
-    protected $produkMasukModel;
-    protected $produkKeluarModel;
 
     public function __construct()
     {
